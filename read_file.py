@@ -7,7 +7,7 @@
 import xlrd
 import traceback
 import json
-import numpy as
+import numpy as np
 import csv
 
 class read_file():
