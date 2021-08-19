@@ -14,7 +14,29 @@
 * 常见初步数据可视化方式: 待实现.
 
 ### 2. 需求库
+  numpy  
+  xlrd, csv, json  
+  pickle  
+  traceback  
   
 ### 3. 主要函数或函数类
-### 4. 实例化
+#### class file_read():
+  file_read() 是用于读取生产生活中常见的数据文件格式内容的类. 目前支持读取 txt, excel, json 等主流数据存储格式.  
+###### 使用的正确姿势  
+    file_read(文件路径).文件类型函数()  
+    for example:  
+      需要读取的文件路径: path = '../data/sample.txt'  
+        -> file_read(path).txt()  
+    
+#### class file_write():
+  file_write() 是用于将处理好的数据信息写入常用的数据格式内容的类. 目前支持写入 txt, csv, json 等主流存储格式.
+###### 使用的正确姿势
+    file_write(文件路径).文件类型函数()  
+    for example:  
+      需要写入的文件路径: path = '../output/sample_out.txt'  
+      需要写入的数据: data = [1, 2, 3, 4, 5]  
+        -> file_write(path).txt(data)  
+### 4. 实例化 (针对预处理和可视化)
+  pass
 ### 5. To Do List
+  pass
