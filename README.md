@@ -10,7 +10,7 @@
   以方便日后调用. 项目目前已实现或待实现下列基本处理方法:  
 * 常见格式文件读取: txt, csv, json, xls, xlsx, npy
 * 常见格式文件写入: txt, csv, json, npy, pkl; xlsx(待实现)
-* 常用数据预处理方式: 缺失值处理; 数据集成与标准化(部分实现). 其余待实现.
+* 常用数据预处理方式: 缺失值处理; 数据集成(部分实现), 数据标准化. 其余待实现.
 * 常见初步数据可视化方式: 待实现.
 
 ### 2. 需求库
@@ -38,14 +38,28 @@
         -> file_write(path).txt(data)    
 
 #### class miss_value():  
-   miss_value() 是用于处理常见数据中的缺失值问题的类. 目前支持删除法, 常规填充法, 随机森林填充法以及回归填充法.  
+   miss_value() 是用于处理常见数据中的缺失值问题的类. 目前支持删除法, 常规填充法, 随机森林填充法以及回归填充法.   
 ###### 使用的正确姿势  
     miss_value(输入的数据).处理方法函数()
     for example:
       需要处理的数据: data = pd.Dataframe(miss_sample)  
       处理方法为以缺失值所在列的均值填充  
-        -> cleaned = miss_value(data).general_fill('mean')  
-        
+        -> cleaned = miss_value(data).general_fill('mean')    
+ 
+#### class integrate():
+   integrate() 是用于处理多个需要合并列表以及重复值的情况的类. 目前支持列表的直接合并.其他方法待实现.  
+   *** integrate() 类 是可拓展的. 在类文件__init__函数直接增加 self.data_n 即可 ***
+###### 使用的正确姿势  
+    pass
+
+#### class transform(): 
+   transform() 是出于需要对数据进行标准化, 中心化等预先处理的类. 目前支持标准化, 归一化以及针对稀疏数据集的最大绝对值标准化.  
+###### 使用的正确姿势  
+    transform(需要处理的数据).处理方法函数()  
+    for example:  
+      需要处理的数据: data = transform_sample
+      处理方法为标准化  
+        -> stand = transform(data).standardize()
 
 ### 4. To Do List
   pass
