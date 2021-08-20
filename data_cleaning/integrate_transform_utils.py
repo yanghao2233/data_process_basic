@@ -5,10 +5,11 @@
 #     class integrate() 数据整合类, 含有:
 #       合并主数据 merge(), 主体合并 title_merge(), 重复值处理 dupe_prc()
 #     class transform() 数据转换类, 含有:
-#       归一化 normalize(), 标准化 standardize(), 中心化 zero_centerize()
+#       归一化 normalize(), 标准化 standardize(), 最大绝对值标准化 maxAbs()
 
 import pandas as pd
 import numpy
+from sklearn import preprocessing
 
 class integrate():
     # integrate 模块可扩展. 可复写至 data_n
@@ -50,13 +51,43 @@ class transform():
         self.data = data
 
     def normalize(self):
-        pass
+        """
+        数据归一化函数 (x - min)/(max - min)
+        应用场景: 绝大多数数据
+        :return:
+            sub: 标准化后的数据集
+        """
+        base = self.data
+        scaler = preprocessing.MinMaxScaler()
+        tmp = scaler.fit_transform(base)
+        sub = pd.DataFrame(tmp)
+        return sub
 
     def standardize(self):
-        pass
+        """
+        数据标准化函数 (x-μ)/σ
+        应用场景: 绝大多数数据
+        :return:
+            sub: 标准化后的数据集
+        """
+        base = self.data
+        scaler = preprocessing.StandardScaler()
+        tmp = scaler.fit_transform(base)
+        sub = pd.DataFrame(tmp)
+        return sub
 
-    def zero_centerized(self):
-        pass
+    def max_Abs(self):
+        """
+        最大绝对值标准化函数 x / max(|x|)
+        应用场景: 稀疏数据集. 效果远优于上述两种标准化方法.
+        :return:
+            sub: 标准化后的数据集
+        """
+        base = self.data
+        scaler = preprocessing.MaxAbsScaler()
+        tmp = scaler.fit_transform(base)
+        sub = pd.DataFrame(tmp)
+        return sub
 
 
 if __name__ == '__main__':
