@@ -14,11 +14,12 @@ from sklearn.ensemble import RandomForestRegressor
 from scipy.stats import linregress
 
 
-class miss_value(self, data):
-    if isinstance(data, pd.DataFrame):
-        self.data = data
-    else:
-        raise TypeError('目前该函数类仅支持 Dataframe 类型')
+class miss_value():
+    def __init__(self, data):
+        if isinstance(data, pd.DataFrame):
+            self.data = data
+        else:
+            raise TypeError('目前该函数类仅支持 Dataframe 类型')
 
     def just_delete(self, type: str = 'row'):
         """
@@ -111,8 +112,9 @@ class miss_value(self, data):
         return sub
 
 
-class converter(self, data):
-    self.data = data
+class converter():
+    def __init__(self, data):
+        self.data = data
 
     def list2df(self):
         sub = DataFrame(self.data)
