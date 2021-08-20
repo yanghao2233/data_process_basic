@@ -10,7 +10,7 @@
   以方便日后调用. 项目目前已实现或待实现下列基本处理方法:  
 * 常见格式文件读取: txt, csv, json, xls, xlsx, npy
 * 常见格式文件写入: txt, csv, json, npy, pkl; xlsx(待实现)
-* 常用文件预处理方式: 待实现.
+* 常用数据预处理方式: 缺失值处理(部分实现); 其他待实现.
 * 常见初步数据可视化方式: 待实现.
 
 ### 2. 需求库
@@ -35,7 +35,17 @@
     for example:  
       需要写入的文件路径: path = '../output/sample_out.txt'  
       需要写入的数据: data = [1, 2, 3, 4, 5]  
-        -> file_write(path).txt(data)  
+        -> file_write(path).txt(data)    
+
+#### class miss_value():  
+   miss_value() 是用于处理常见数据中的缺失值问题的类. 目前支持删除法, 常规填充法. 待实现 贝叶斯填充法以及回归填充法.  
+###### 使用的正确姿势  
+    miss_value(输入的数据).处理方法函数()
+    for example:
+      需要处理的数据: data = pd.Dataframe(miss_sample)  
+      处理方法为以缺失值所在列的均值填充  
+        -> cleaned = miss_value(data).general_fill('mean')  
+        
 ### 4. 实例化 (针对预处理和可视化)
   pass
 ### 5. To Do List
