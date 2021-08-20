@@ -1,15 +1,21 @@
 # -*- coding:utf-8 -*-
 # @Author: yanghao
 # @Create time: 2021/08/19 16:49
-# @Description: 用于处理数据中存在缺失值的情况, 包含:
+# @Description:
+#   用于处理数据中存在缺失值的情况, 包含:
+#       class miss_value() 内置下列方式:
 #       直接删除缺失值: just_delete; 线性填充: fill; 贝叶斯填充: bayes; 回归填充: regress
+#       * 为减少格式带来的问题, 本文件中还定义了函数类 class converter() 用于处理数据格式带来的问题.
 
 import pandas as pd
+from pandas.core.frame import DataFrame
 
 
-class miss_value_pcs(self, data):
-    self.data = data
-    pass
+class miss_value(self, data):
+    if isinstance(data, pd.DataFrame):
+        self.data = data
+    else:
+        raise TypeError('目前该函数类仅支持 Dataframe 类型')
 
     def just_delete(self, type: str = 'row'):
         """
@@ -32,15 +38,40 @@ class miss_value_pcs(self, data):
             raise ValueError("输入的删除值类型必须是 'row' 或 'col'")
         return sub
 
-    def fill(self, type: str = 'front'):
+    def general_fill(self, type: str = 'front'):
+        """
+        利用常见(非推理运算性质)方式填充缺失值
+        应用场景: 基本所有场景; 但当数据偏移度大, 分布极端不均时不推荐使用.
+        * 需要以行作为 sample, 以列作为 parameter *
+        :param
+            type: 填充缺失值的方式. 默认为 front, 向后取近邻值填充;
+                可选: back, 向前取近邻值填充; mean, 取列数据的平均值填充.
+        :return:
+        """
+        df = self.file
+        if type == 'front':
+            sub = df.fillna(method = 'fill')
+        elif type == 'back':
+            sub = df.fillna(method = 'back')
+        elif type == 'mean':
+            for col in list(df.columns[df.isnull().sum() > 0]):
+                fill_mean = df[col].mean()
+                df.fillna(fill_mean, inplace = True)
+            sub = df
+        return sub
+
+    def bayes_fill(self):
         pass
 
-    def bayes(self):
+    def regress_fill(self):
         pass
 
-    def regress(self):
-        pass
+class converter(self, data):
+    self.data = data
 
+    def list2df(self):
+        sub = DataFrame(self.data)
+        return sub
 
 if __name__ == '__main__':
     pass
