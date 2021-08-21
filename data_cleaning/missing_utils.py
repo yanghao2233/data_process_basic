@@ -124,6 +124,6 @@ class converter():
 if __name__ == '__main__':
     data = {'col1': [1, np.nan, 2, np.nan, 4, 5], 'col2': [6, 5, 4, 3, 2, 1], 'col3': [1, 3, 4, 2, 4, 6]}
     test_df = pd.DataFrame(data)
-    rdforest = miss_value(data).randforest_fill('col1')
+    rdforest = miss_value(test_df).randforest_fill('col1')
     print(rdforest)
     pass
