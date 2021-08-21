@@ -77,4 +77,4 @@
       抽样方法为简单随机抽样.  
         -> sample_test = sampling(data, 10).simple_random()
 ### 4. To Do List
-  2021/08/21 重构 sampling
+  2021/08/21 重构 sampling /仍然出现问题 考虑stratify单独成为一个函数
