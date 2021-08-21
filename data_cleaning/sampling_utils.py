@@ -8,6 +8,9 @@
 import random
 import math
 from sklearn.model_selection import train_test_split
+import numpy as np
+import pandas as pd
+
 
 class sampling():
     def __init__(self, data: list, sample_num: int):
@@ -45,17 +48,31 @@ class sampling():
             sub.append(self.data[i])
         return sub
 
-    def stratify(self, size: float = 0.9):
+    def stratify_rule(self, typeFracDict: dict, group):
         """
-        分层抽样模块
-        * 未完成 出于技术限制后续再进行 *
-        ** develop：考虑简单分层后按 size 比例进行抽取 **
-        :param size:
+        *** 产生额外问题. 单独在类内定义了之后无法直接利用 applu() 函数调用 ***
+        分层抽样策略模块. 在后面的分层抽样函数中调用. 不存在直接调用的问题.
+        :param
+            typeFracDict: 输入的按照类别进行分层抽样的比例. 需要输入格式为 dict.
+            group:
         :return:
         """
-        stratified, tmp = train_test_split(len(self.data), test_size = size, stratify = len(self.data)[['label']])
+        name = group.name
+        frac = typeFracDict[name]
+        return group.sample(frac = frac)
+
+    def stratify(self, group_id: str):
+        """
+        *** 产生问题 stratify() 未能启用 ***
+        :param group_id:
+        :return:
+        """
+
+        df = self.data
+        result = df.groupby(group_id, group_keys = False).apply()
         pass
+
 
 if __name__ == '__main__':
     data = [[1, 2, 2, 3, 4, 5], [6, 5, 4, 3, 2, 1], [1, 3, 4, 2, 4, 6], [3, 7, 6, 2, 4, 1]]
-    print(sampling(data, 1).stratify(0.5))
+    print(sampling(data, 1).systematic(2))
