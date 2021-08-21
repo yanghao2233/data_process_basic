@@ -69,7 +69,7 @@
         -> trans_test = transform(data).maxAbs()
 
 #### class sampling():
-    sampling() 是用于简单降维或数据集划分情况下的抽样类别. 目前支持简单随机抽样, 分层抽样, 系统抽样, 以及雪球抽样.  
+    sampling() 是用于简单降维或数据集划分情况下的抽样类别. 目前支持简单随机抽样, 分层抽样, 系统抽样.  
 ###### 使用的正确姿势  
     sampling(需要进行抽样的数据, 抽样数目).抽样方法函数()  
     for example:
