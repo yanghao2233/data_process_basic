@@ -10,7 +10,10 @@
   以方便日后调用. 项目目前已实现或待实现下列基本处理方法:  
 * 常见格式文件读取: txt, csv, json, xls, xlsx, npy
 * 常见格式文件写入: txt, csv, json, npy, pkl; xlsx(待实现)
-* 常用数据预处理方式: 缺失值处理(部分实现); 其他待实现.
+* 常用数据预处理方式: 
+  * 缺失值处理, 随机抽样, 数据转化 (已实现). 
+  * 数据集合 (部分实现)
+  * 其他待实现.
 * 常见初步数据可视化方式: 待实现.
 
 ### 2. 需求库
@@ -38,15 +41,40 @@
         -> file_write(path).txt(data)    
 
 #### class miss_value():  
-   miss_value() 是用于处理常见数据中的缺失值问题的类. 目前支持删除法, 常规填充法. 待实现 随机森林填充法以及回归填充法.  
+   miss_value() 是用于处理常见数据中的缺失值问题的类. 目前支持删除法, 常规填充法, 随机森林填充法以及回归填充法.  
 ###### 使用的正确姿势  
     miss_value(输入的数据).处理方法函数()
     for example:
       需要处理的数据: data = pd.Dataframe(miss_sample)  
       处理方法为以缺失值所在列的均值填充  
         -> cleaned = miss_value(data).general_fill('mean')  
-        
-### 4. 实例化 (针对预处理和可视化)
-  pass
-### 5. To Do List
+
+#### class integrate():
+    integrate() 是用于处理多个数据列表需要进行合并, 去重等情况的类. 目前支持数据表直接合并.  
+    *** 本数据类支持自定义扩展, 使用时只需额外定义 data_n 即可 ***
+###### 使用的正确姿势
+    integrate(需要合并的数据集, 以逗号分隔).合并方法函数()
+    for example:  
+      需要合并的数据表: df1, df2  
+      合并方法为直接填充  
+        -> merge_test = integrate(df1, df2).merge()
+
+#### class transform():
+    transform() 是用于数据分析过程中常用的数据标准化等情况. 目前支持 归一化, 标准化和最大绝对值标准化
+###### 使用的正确姿势
+    transform(需要标准化的数据).处理方式函数()  
+    for example:  
+      需要处理的数据: data = pd.Dataframe(trans_sample)  
+      处理方法为最大绝对值标准化.  
+        -> trans_test = transform(data).maxAbs()
+
+#### class sampling():
+    sampling() 是用于简单降维或数据集划分情况下的抽样类别. 目前支持简单随机抽样, 分层抽样, 系统抽样, 以及雪球抽样.  
+###### 使用的正确姿势  
+    sampling(需要进行抽样的数据, 抽样数目).抽样方法函数()  
+    for example:
+      需要抽样的数据: data = list(sampling_sample)  
+      抽样方法为简单随机抽样.  
+        -> sample_test = sampling(data, 10).simple_random()
+### 4. To Do List
   pass
