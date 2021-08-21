@@ -49,6 +49,7 @@ class sampling():
         """
         分层抽样模块
         * 未完成 出于技术限制后续再进行 *
+        ** develop：考虑简单分层后按 size 比例进行抽取 **
         :param size:
         :return:
         """
