@@ -23,11 +23,11 @@ class clustering():
         """
         kmeans++ 聚类模型
         :param
-            max_iter:
-            n_init:
-            num_jobs:
+            max_iter: 最大迭代次数; 默认为 300.
+            n_init: 初始生成采样点个数, 默认为 40.
+            num_jobs: 同时生成的任务数量(本函数允许并行运算); 默认为 -1, 即取最大并行任务数量.
         :return:
-            result:
+            result: 完成聚类的样本的分类指标.
         """
         kmeans_cluster = KMeans(n_clusters = self.n_cluster, max_iter = max_iter,
                                 n_init = n_init, init = 'k-means++', n_jobs = num_jobs)
@@ -38,10 +38,10 @@ class clustering():
         """
         基于自定义距离的 kmeans 聚类模型
         :param
-            distance_function:
-            if_visualize:
+            distance_function: 自定义的距离函数; 可从 ./distance_tools.py 中调用.
+            if_visualize: 是否进行绘图表示聚类结果; 默认为 False. 高维空间下不推荐输出.
         :return:
-            clusters:
+            clusters: 完成聚类的样本的分类指标.
         """
         initial_centers = kmeans_plusplus_initializer(data = self.data, amount_centers = self.n_cluster).initialize()
         km_metric = distance_metric(type_metric.USER_DEFINED, func = distance_function)
@@ -57,10 +57,10 @@ class clustering():
         """
         高斯混合聚类模型
         :param
-            covar_type:
-            to_list:
+            covar_type: 组成协方差矩阵的类型. 默认为 'full'; 可选 'spherical', 'diag', 'tied'
+            to_list: 是否将聚类结果转化为 list; 默认为 True.
         :return:
-            result:
+            result: 完成聚类的样本的分类指标.
         """
         gmm = GaussianMixture(n_components = self.n_cluster, covariance_type = covar_type, random_state = 2333)
         gmmModel = gmm.fit(self.data)
@@ -72,10 +72,14 @@ class clustering():
     def Hierachy(self, distance_metric: str = 'euclidean', linkage: str = 'average', to_list: bool = False):
         """
         层次聚类
-        :param distance_metric:
-        :param linkage:
-        :param to_list:
+        :param
+            distance_metric: 进行距离换算的算法; 格式为 str, 默认为 'euclidean' 欧氏距离; 可选: 'cosine' 余弦相似度,
+                            'manhattan' 曼哈顿距离, 'precompute' 不知道是啥.
+                            * 当 linkage 为 'ward' 时只能选用 'euclidean'.
+            linkage: 联系指标. 默认为 'ward'; 可选: 'complete', 'average', 'single'.
+            to_list: 是否将聚类结果转化为列表进行输出; 默认为 True.
         :return:
+            result: 完成聚类的样本的分类指标.
         """
         model = AgglomerativeClustering(n_clusters = self.n_cluster, affinity = distance_metric, linkage = linkage)
         result = model.fit_predict(self.data)
@@ -92,8 +96,8 @@ class model_examiner():
         self.true = true_labels
         self.predict = predict_labels
 
-    def internal_evaluate(self)
-        pass:
+    def internal_evaluate(self):
+        pass
 
     def supervised_evaluate(self):
         """
