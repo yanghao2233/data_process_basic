@@ -3,7 +3,7 @@
 # @Create time: 2021/08/20 09:11
 # @Description:
 
-from sklearn.cluster import KMeans
+from sklearn.cluster import KMeans, AgglomerativeClustering
 from sklearn import metrics
 from sklearn.mixture import GaussianMixture
 from pyclustering.cluster.kmeans import kmeans, kmeans_visualizer
@@ -14,6 +14,7 @@ import numpy as np
 
 
 class clustering():
+
     def __init__(self, data: list or np.array, n_cluster: int):
         self.data = data
         self.n_cluster = n_cluster
@@ -68,5 +69,35 @@ class clustering():
             result = result.tolist()
         return result
 
-    def Hierachy(self):
-        pass
+    def Hierachy(self, distance_metric: str = 'euclidean', linkage: str = 'average', to_list: bool = False):
+        """
+        层次聚类
+        :param distance_metric:
+        :param linkage:
+        :param to_list:
+        :return:
+        """
+        model = AgglomerativeClustering(n_clusters = self.n_cluster, affinity = distance_metric, linkage = linkage)
+        result = model.fit_predict(self.data)
+        if to_list:
+            result = result.tolist()
+        return result
+
+
+class model_examiner():
+
+    def __init__(self, true_labels, predict_labels):
+        self.true = true_labels
+        self.predict = predict_labels
+
+    def supervised_evaluate(self):
+        """
+        基于兰德系数和互信息执行的外部结果评估指标
+        * 主要是聚类用 *
+        ** 能否用于有监督机器学习模型待检验 **
+        :return:
+        """
+        rand_index = metrics.adjusted_rand_score(self.true, self.predict)
+        logger.info('调整兰德系数为 % .3f' % rand_index)
+        mutual_info = metrics.adjusted_mutual_info_score(self.true, self.predict)
+        logger.info('调整互信息为 % .3f' % mutual_info)
