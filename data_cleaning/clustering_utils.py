@@ -83,12 +83,17 @@ class clustering():
             result = result.tolist()
         return result
 
+    def spectral(self):
+        pass
 
 class model_examiner():
 
     def __init__(self, true_labels, predict_labels):
         self.true = true_labels
         self.predict = predict_labels
+
+    def internal_evaluate(self)
+        pass:
 
     def supervised_evaluate(self):
         """
