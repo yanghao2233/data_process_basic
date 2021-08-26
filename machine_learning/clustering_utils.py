@@ -149,13 +149,25 @@ class clustering():
 
 class model_examiner():
 
-    def __init__(self, true_labels, predict_labels):
+    def __init__(self, true_labels, predict_labels, data):
         self.true = true_labels
         self.predict = predict_labels
+        self.data = data
 
-    def internal_evaluate(self):
-
-        pass
+    def internal_evaluate(self, sh_metric: str = 'euclidean'):
+        """
+        基于两个名字很长的分数执行的聚类用内部评估指标
+        第一个很长的: 簇间距离与簇内距离的比值; 理论上越大越好.
+        第二个很长的: 轮廓系数; [-1, 1]
+        :param
+            sh_metric: 计算轮廓系数所使用的距离衡量方法. 默认为 'euclidean' 欧氏距离.
+        :return:
+            INFO: Calinski-Harabaz and Silhouette scores
+        """
+        cal_har_score = metrics.calinski_harabasz_score(self.data, self.predict)
+        logger.info('Calinski_Harabaz 分数为 % .3f' % cal_har_score)
+        silh_score = metrics.silhouette_score(self.data, self.predict, metric = sh_metric)
+        logger.info('Silhouette 分数为 % .3f' % silh_score)
 
     def supervised_evaluate(self):
         """
