@@ -8,7 +8,7 @@
 #      class evaluate():
 #           内置 内部指标评估:internal_evaluate(), 外部指标评估 supervised_evaluate().
 
-from sklearn.cluster import KMeans, AgglomerativeClustering,DBSCAN, SpectralClustering
+from sklearn.cluster import KMeans, AgglomerativeClustering,DBSCAN, SpectralClustering, Birch
 from sklearn import metrics
 from sklearn.mixture import GaussianMixture
 from pyclustering.cluster.kmeans import kmeans, kmeans_visualizer
@@ -127,8 +127,25 @@ class clustering():
         logger.info('*** 聚类结束, 结果已输出 ***')
         return result
 
-    def BIRCH(self):
-        pass
+    def BIRCH(self, to_list: bool = True, not_by_k: bool = False):
+        """
+        中文名全名很长懒得打了
+        基于 CF 特征树构建的聚类模型.
+        :param
+            to_list: 是否需要将结果转化为列表; 默认为 True;
+            not_by_k: 不规定聚类数目, 让机器自己迭代出一个它认为ok的聚类情况; 默认为 False.
+        :return:
+            result: 完成聚类后的数据标签.
+        """
+        if not_by_k:
+            n_cluster = None
+        else:
+            n_cluster = self.n_cluster
+        result = Birch(n_cluster = n_cluster).fit_predict(self.data)
+        if to_list:
+            result = result.tolist
+        logger.info('*** 聚类结束, 结果已输出 ***')
+        return result
 
 class model_examiner():
 
