@@ -1,4 +1,4 @@
-# File Process Basic 项目说明  
+# Data Process Basic 项目说明  
 
 ###### Create Time: 2021/08/19 15:53
 ###### Creator: yanghao2233 
@@ -6,7 +6,7 @@
 
 
 ### 1. 项目综述  
-  File Process Basic 项目是基于日常Python学习中遇到的各类文件读取, 写入, 预处理等重复性相对较高, 代码相对冗杂的问题进行处理,   
+  Data Process Basic 项目是基于日常Python学习中遇到的各类 文件读取, 写入, 预处理, 简单挖掘等重复性相对较高, 代码相对冗杂的问题进行处理,   
   以方便日后调用. 项目目前已实现或待实现下列基本处理方法:  
 * 常见格式文件读取: txt, csv, json, xls, xlsx, npy
 * 常见格式文件写入: txt, csv, json, npy, pkl; xlsx(待实现)
