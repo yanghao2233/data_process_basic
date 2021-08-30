@@ -18,9 +18,8 @@
 
 ### 2. 需求库
   numpy  
-  xlrd, csv, json  
-  pickle  
-  traceback  
+  sklearn
+  pyclustering
   
 ### 3. 主要函数或函数类
 #### class file_read():
