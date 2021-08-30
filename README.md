@@ -76,5 +76,15 @@
       需要抽样的数据: data = list(sampling_sample)  
       抽样方法为简单随机抽样.  
         -> sample_test = sampling(data, 10).simple_random()
+
+#### class clustering()
+    clustering() 是用于对数据集进行降维或无监督划分时使用的机器学习模块. 目前支持七种常见聚类. 包括:  
+      kmeans++,  可自传参的 kmeans, GMM, 图论聚类 spectral,   
+      密度聚类 DbScan, 特征树聚类 BIRCH, 层次聚类 Hierarchy.   
+      for example:  
+        需要聚类的数据: iris 数据集.  
+        聚类方法为 kmeans.
+          -> iris_clustering = clustering(data = iris, n_cluster = 3).kmeans(num_job = 1)
+
 ### 4. To Do List
   2021/08/21 重构 sampling /仍然出现问题 考虑stratify单独成为一个函数
